@@ -38,7 +38,18 @@
       1,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ],
-    "comma-dangle": [2, "never"]
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always",
+        "objects": "never",
+        "imports": "never",
+        "exports": "never",
+        "functions": "never"
+      }
+    ],
+    "no-unused-vars": "warn",
+    "object-curly-newline": "off"
   },
   "settings": {
     "import/parsers": {
