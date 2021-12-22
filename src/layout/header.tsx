@@ -10,7 +10,7 @@ const Header: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="static" className={classes.header}>
+    <AppBar position="fixed" elevation={0} className={classes.header}>
       <Toolbar variant="dense">
         <IconButton>
           <VenturusIcon style={{ fontSize: 40 }} />

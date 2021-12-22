@@ -5,17 +5,11 @@ import Footer from "./footer";
 import Header from "./header";
 
 const Main: React.FC = () => (
-  <Grid container>
-    <Grid item xs={12}>
-      <Header />
-    </Grid>
-    <Grid item xs={12}>
-      <Content />
-    </Grid>
-    <Grid item xs={12}>
-      <Footer />
-    </Grid>
-  </Grid>
+  <>
+    <Header />
+    <Content />
+    <Footer />
+  </>
 );
 
 export default Main;

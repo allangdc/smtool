@@ -1,9 +1,14 @@
 import React from "react";
+import { useStyles } from "./style";
 
-const Content: React.FC = () => (
-  <div style={{ backgroundColor: "yellow", minHeight: "89vh" }}>
-    <h1>Content</h1>
-  </div>
-);
+const Content: React.FC = () => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.content}>
+      <h1>Content</h1>
+    </div>
+  );
+};
 
 export default Content;
