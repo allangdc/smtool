@@ -41,7 +41,7 @@
     "comma-dangle": [
       "error",
       {
-        "arrays": "always",
+        "arrays": "never",
         "objects": "never",
         "imports": "never",
         "exports": "never",
@@ -51,7 +51,8 @@
     "no-unused-vars": "warn",
     "object-curly-newline": "off",
     "react/jsx-props-no-spreading": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "react/require-default-props": "off"
   },
   "settings": {
     "import/parsers": {

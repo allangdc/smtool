@@ -9,7 +9,7 @@ export const useStyles = makeStyles(() => ({
     fontWeight: "bold"
   },
   content: {
-    backgroundColor: "yellow",
+    backgroundColor: "#e9e3e9",
     minHeight: "100%",
     position: "relative",
     top: 55

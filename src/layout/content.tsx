@@ -1,4 +1,5 @@
 import React from "react";
+import RoutesSwitch from "../RoutesSwitch";
 import { useStyles } from "./style";
 
 const Content: React.FC = () => {
@@ -6,7 +7,7 @@ const Content: React.FC = () => {
 
   return (
     <div className={classes.content}>
-      <h1>Content</h1>
+      <RoutesSwitch />
     </div>
   );
 };

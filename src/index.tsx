@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 
@@ -16,7 +17,7 @@ const theme = createTheme({
       light: "#ff7961",
       main: "#662f88", // "#f44336",
       dark: "#ba000d",
-      contrastText: "#000"
+      contrastText: "#fff"
     }
   }
 });
@@ -24,7 +25,9 @@ const theme = createTheme({
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
