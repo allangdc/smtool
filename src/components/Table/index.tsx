@@ -1,3 +1,6 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable no-confusing-arrow */
 import {
   TableContainer,
   Table as Tb,
@@ -8,17 +11,13 @@ import {
   Typography,
   Tooltip
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ShareIcon from "@mui/icons-material/Share";
 import EditIcon from "@mui/icons-material/Edit";
 import Header from "./header";
 import { useStyles } from "./style";
-
-export interface IDataType {
-  name: string;
-  description: string;
-}
+import { IDataType } from "./datatype";
 
 interface Props {
   data: Array<IDataType>;
@@ -26,6 +25,7 @@ interface Props {
 
 const Buttons: React.FC = () => {
   const classes = useStyles();
+
   return (
     <div style={{ minWidth: 90 }}>
       <div id="tableButtonsItem" className={classes.tableButtons}>
@@ -60,14 +60,43 @@ const Buttons: React.FC = () => {
 const Table: React.FC<Props> = (props: Props) => {
   const { data } = props;
   const classes = useStyles();
+  const [internalData, setInternalData] = useState<Array<IDataType>>([]);
+
+  useEffect(() => {
+    setInternalData(data);
+  }, [data]);
+
+  const sortByName = (sort: string) => {
+    const dt = new Array(...internalData);
+    if (sort === "asc") {
+      dt.sort((a: IDataType, b: IDataType) => (a.name < b.name ? 1 : -1));
+    } else {
+      dt.sort((a: IDataType, b: IDataType) => (a.name > b.name ? 1 : -1));
+    }
+    setInternalData(dt);
+  };
+
+  const sortByDesc = (sort: string) => {
+    const dt = new Array(...internalData);
+    if (sort === "asc") {
+      dt.sort((a: IDataType, b: IDataType) =>
+        a.description < b.description ? 1 : -1
+      );
+    } else {
+      dt.sort((a: IDataType, b: IDataType) =>
+        a.description > b.description ? 1 : -1
+      );
+    }
+    setInternalData(dt);
+  };
 
   return (
     <div style={{ padding: 20 }}>
       <TableContainer>
         <Tb size="small" sx={{ borderBottom: "none" }}>
-          <Header />
+          <Header sortByName={sortByName} sortByDesc={sortByDesc} />
           <TableBody>
-            {data.map((item) => (
+            {internalData.map((item) => (
               <TableRow key={item.name} hover className={classes.tableRow}>
                 <TableCell sx={{ width: "30%" }}>
                   <Typography
