@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import MyTeams from "./views/MyTeams";
+import MyTeams from "./views/Dashboard";
 
 const RoutesSwitch = () => (
   <Routes>

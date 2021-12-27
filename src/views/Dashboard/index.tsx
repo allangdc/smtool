@@ -1,14 +1,14 @@
+import React from "react";
 import { Paper } from "@material-ui/core";
 import { Grid } from "@mui/material";
-import React from "react";
-import MyTable from "./MyTable";
+import MyTeamTable from "./MyTeam";
 
-const MyTeams = () => (
+const DashBoard = () => (
   <div style={{ padding: 20 }}>
     <Grid container spacing={6}>
       <Grid item xs={6}>
         <Paper>
-          <MyTable />
+          <MyTeamTable />
         </Paper>
       </Grid>
       <Grid item xs={6}>
@@ -20,4 +20,4 @@ const MyTeams = () => (
   </div>
 );
 
-export default MyTeams;
+export default DashBoard;
