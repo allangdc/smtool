@@ -22,5 +22,8 @@ export const useStyles = makeStyles(() => ({
   },
   modalTextField: {
     width: "100%"
+  },
+  modalButton: {
+    width: "100%"
   }
 }));

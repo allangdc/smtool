@@ -4,8 +4,8 @@ import { Grid, Modal } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useStyles } from "./style";
 import { dataContext } from "./dataContext";
-import { IDataType } from "../../../components/Table/datatype";
 import MinSquareButton from "../../../components/MinSquareButton";
+import { IMyTeams } from "../../../services/myteams";
 
 const AddDataButton: React.FC = () => {
   const classes = useStyles();
@@ -24,8 +24,7 @@ const AddDataButton: React.FC = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const dt = new Array<IDataType>(...data);
-    dt.push({ name, description });
+    const dt = new Array<IMyTeams>(...data);
     setData(dt);
     handleClose();
   };
@@ -62,10 +61,27 @@ const AddDataButton: React.FC = () => {
                   value={description}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="secondary">
-                  Add
-                </Button>
+              <Grid container spacing={2} item xs={12}>
+                <Grid item xs={6}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    className={classes.modalButton}
+                  >
+                    Add
+                  </Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.modalButton}
+                    onClick={handleClose}
+                  >
+                    Cancel
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
           </form>

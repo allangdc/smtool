@@ -1,10 +1,14 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import MyTeams from "./views/Dashboard";
+import CreateTeamView from "./views/CreateTeam";
+import DashBoard from "./views/Dashboard";
+import Login from "./views/login";
 
 const RoutesSwitch = () => (
   <Routes>
-    <Route path="/" element={<MyTeams />} />
+    <Route path="/" element={<DashBoard />} />
+    <Route path="/new" element={<CreateTeamView />} />
+    <Route path="/login" element={<Login />} />
   </Routes>
 );
 

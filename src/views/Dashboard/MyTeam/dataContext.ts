@@ -1,9 +1,9 @@
 import React from "react";
-import { IDataType } from "../../../components/Table/datatype";
+import { IMyTeams } from "../../../services/myteams";
 
 export interface IDataContext {
-  data: Array<IDataType>;
-  setData: React.Dispatch<React.SetStateAction<IDataType[]>>;
+  data: Array<IMyTeams>;
+  setData: React.Dispatch<React.SetStateAction<IMyTeams[]>>;
 }
 
 const initDataContext: IDataContext = {
