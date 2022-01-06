@@ -1,5 +1,4 @@
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getUserByID } from "./users";
+import firebase, { firebaseAuth } from "./firebaseConnection";
 
 export interface IAuthUser {
   id: string;
@@ -11,41 +10,38 @@ export interface IAuthUser {
 export const authLogin = async (
   email: string,
   password: string
-): Promise<IAuthUser | null> => {
-  const auth = getAuth();
-  let authUser: IAuthUser | null = null;
-  await signInWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
+): Promise<[string | null, string]> => {
+  let uid: string | null = null;
+  let code: string = "";
+  await firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((userCredential: firebase.auth.UserCredential) => {
       const { user } = userCredential;
-      const userdb = await getUserByID(user.uid);
-      if (userdb) {
-        authUser = {
-          id: user.uid,
-          email: user.email,
-          firstname: userdb.firstname,
-          lastname: userdb.lastname
-        };
+      if (user) {
+        uid = user.uid;
       }
-      authUser = null;
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log("ERROR LOGIN", errorCode, errorMessage);
-      authUser = null;
+      code = errorCode;
     });
-  return authUser;
+  return [uid, code];
 };
 
-export const authLogout = () => {
-  const auth = getAuth();
-  signOut(auth)
-    .then(() => {
-      // Sign-out successful.
-      console.log("LOGOUT");
-    })
+export const isLogged = (): firebase.User | null => {
+  const auth = firebaseAuth;
+  return auth.currentUser;
+};
+
+export const authLogout = async () => {
+  const auth = firebaseAuth;
+  await auth
+    .signOut()
+    .then(() => {})
     .catch((error) => {
-      // An error happened.
       console.log("LOGOUT ERROR", error);
     });
 };

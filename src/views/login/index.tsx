@@ -1,22 +1,44 @@
+import { Logout } from "@mui/icons-material";
 import { Button, Divider, Grid, Paper, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../authContext";
 import MyTextBox from "../../components/MyTextBox";
-import { authLogin } from "../../services/auth";
+import { authLogin, authLogout } from "../../services/auth";
 import { useStyles } from "./style";
 
 const Login = () => {
   const classes = useStyles();
   const [usrEmail, setUsrEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { authUser, setAuthUser } = useContext(AuthContext);
+  const [errMessage, setErrMessage] = useState<string>();
+  const { setUserID } = useContext(AuthContext);
+
+  const clearItems = () => {
+    setUsrEmail("");
+    setPassword("");
+    setErrMessage(undefined);
+  };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const auth = await authLogin(usrEmail, password);
-    if (auth) {
-      setAuthUser(auth);
+    const [uid, code] = await authLogin(usrEmail, password);
+    console.log("MY UID", uid);
+    if (uid) {
+      setUserID(uid);
+      clearItems();
+    } else if (code === "auth/wrong-password") {
+      setErrMessage("Invalid password");
+    } else if (code === "auth/user-not-found") {
+      setErrMessage("User not found");
+    } else {
+      setErrMessage(code);
     }
+  };
+
+  const onLogout = async () => {
+    await authLogout();
+    setUserID(undefined);
+    clearItems();
   };
 
   return (
@@ -52,12 +74,27 @@ const Login = () => {
             />
           </Grid>
           <Grid item xs={12}>
+            <Typography variant="body2" align="center">
+              {errMessage}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
             <Button
               variant="contained"
               type="submit"
               className={classes.btnSignin}
             >
               Sign In
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant="contained"
+              type="button"
+              className={classes.btnSignin}
+              onClick={onLogout}
+            >
+              Logout
             </Button>
           </Grid>
         </Grid>

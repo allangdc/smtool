@@ -1,6 +1,4 @@
-/* eslint-disable no-shadow */
-import { collection, getDocs } from "firebase/firestore/lite";
-import { firebaseDB } from "./firebaseConnection";
+import firebase from "./firebaseConnection";
 
 export interface IMyTeams {
   description: string;
@@ -9,9 +7,20 @@ export interface IMyTeams {
   website: string;
 }
 
-export const getMyTeams = async (): Promise<Array<IMyTeams>> => {
-  const myTeamsCollection = collection(firebaseDB, "myTeams");
-  const snapshot = await getDocs(myTeamsCollection);
-  const myTeamsList = snapshot.docs.map((doc) => doc.data() as IMyTeams);
+export const getMyTeams = async (
+  uid: string
+): Promise<Array<IMyTeams> | null> => {
+  let myTeamsList: Array<IMyTeams> | null = null;
+  await firebase
+    .firestore()
+    .collection("myTeams")
+    .where("uid", "==", uid)
+    .get()
+    .then((snapshot) => {
+      myTeamsList = snapshot.docs.map((doc) => doc.data() as IMyTeams);
+    })
+    .catch((error) => {
+      console.log("GetMyTeams Error", error);
+    });
   return myTeamsList;
 };
