@@ -1,25 +1,28 @@
 import { Button, Chip, Grid, ListItem, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DefButton from "./DefButton";
 import { useStyles } from "./style";
-
-interface Props {
-  id?: string;
-}
 
 interface ChipData {
   key: number;
   label: string;
 }
 
+interface Props {
+  onChangeChipList?: (list: Array<ChipData>) => void;
+}
+
 const ChipList = (props: Props) => {
-  const { id } = props;
+  const { onChangeChipList } = props;
   const classes = useStyles();
 
-  const [dataChip, setDataChip] = useState<Array<ChipData>>([
-    { key: 0, label: "BR" },
-    { key: 1, label: "PTW" }
-  ]);
+  const [dataChip, setDataChip] = useState<Array<ChipData>>([]);
+
+  useEffect(() => {
+    if (onChangeChipList) {
+      onChangeChipList(dataChip);
+    }
+  }, [dataChip]);
 
   const onDelete = (e: any) => {
     const dt = dataChip.filter((item) => item.key !== e);
