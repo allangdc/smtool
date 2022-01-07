@@ -1,5 +1,6 @@
-import { Chip, Grid, ListItem, Typography } from "@mui/material";
+import { Button, Chip, Grid, ListItem, Typography } from "@mui/material";
 import React, { useState } from "react";
+import DefButton from "./DefButton";
 import { useStyles } from "./style";
 
 interface Props {
@@ -17,22 +18,21 @@ const ChipList = (props: Props) => {
 
   const [dataChip, setDataChip] = useState<Array<ChipData>>([
     { key: 0, label: "BR" },
-    { key: 1, label: "PTW" },
-    { key: 2, label: "ABR" },
-    { key: 3, label: "APTW" },
-    { key: 4, label: "BBR" },
-    { key: 5, label: "BPTW" },
-    { key: 6, label: "CBR" },
-    { key: 7, label: "CPTW" },
-    { key: 8, label: "DBR" },
-    { key: 9, label: "DPTW" },
-    { key: 10, label: "EBR" },
-    { key: 11, label: "EPTW" }
+    { key: 1, label: "PTW" }
   ]);
 
   const onDelete = (e: any) => {
     const dt = dataChip.filter((item) => item.key !== e);
     setDataChip(dt);
+  };
+
+  const addChip = (value: string) => {
+    const dtchip = new Array<ChipData>(...dataChip);
+    dtchip.push({
+      key: dtchip.length,
+      label: value
+    });
+    setDataChip(dtchip);
   };
 
   return (
@@ -44,10 +44,11 @@ const ChipList = (props: Props) => {
             key={item.key}
             label={item.label}
             color="primary"
-            style={{ marginRight: 3 }}
+            style={{ marginRight: 3, marginBottom: 1 }}
             onDelete={(e) => onDelete(item.key)}
           />
         ))}
+        <DefButton onEnterValue={addChip} />
       </div>
     </div>
   );

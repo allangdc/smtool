@@ -12,5 +12,17 @@ export const useStyles = makeStyles(() => ({
     borderColor: "lightgray",
     borderWidth: 1,
     minHeight: 80
+  },
+  defButton: {
+    display: "flex",
+    alignItems: "flex-start",
+    marginTop: "5px !important",
+    cursor: "pointer"
+  },
+  inputModal: {
+    position: "absolute"
+  },
+  textFieldModal: {
+    fontSize: 10
   }
 }));
