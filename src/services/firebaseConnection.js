@@ -1,26 +1,27 @@
+/* eslint-disable import/no-duplicates */
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
-import { getAnalytics } from "firebase/analytics";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyC2ZPv3Lwu8xRVeH5d3qxfXzsHOxdFidFI",
-  authDomain: "challengevent-4839e.firebaseapp.com",
-  projectId: "challengevent-4839e",
-  storageBucket: "challengevent-4839e.appspot.com",
-  messagingSenderId: "838211359416",
-  appId: "1:838211359416:web:716b862042932a4a901a4d",
-  measurementId: "G-5ENWX1YW1Q"
+  apiKey: "AIzaSyBIrbFTNiGa4bmDsXGrLOY7XourCEnpgbY",
+  authDomain: "desafiovent-52c16.firebaseapp.com",
+  projectId: "desafiovent-52c16",
+  storageBucket: "desafiovent-52c16.appspot.com",
+  messagingSenderId: "307700004156",
+  appId: "1:307700004156:web:2976e432d21b1b881cda39"
 };
 
 // Initialize Firebase
 
-const app = initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+export const firebaseAuth = firebase.auth();
 
-const analytics = getAnalytics(app);
-
-export const firebaseDB = getFirestore(app);
+export default firebase;
