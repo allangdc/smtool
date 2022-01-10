@@ -3,37 +3,30 @@ import React, { useEffect, useState } from "react";
 import DefButton from "./DefButton";
 import { useStyles } from "./style";
 
-interface ChipData {
+export interface ChipData {
   key: number;
   label: string;
 }
 
 interface Props {
-  onChangeChipList?: (list: Array<ChipData>) => void;
+  dataChip: ChipData[];
+  setDataChip: React.Dispatch<React.SetStateAction<ChipData[]>>;
 }
 
 const ChipList = (props: Props) => {
-  const { onChangeChipList } = props;
+  const { dataChip, setDataChip } = props;
   const classes = useStyles();
-
-  const [dataChip, setDataChip] = useState<Array<ChipData>>([]);
-
-  useEffect(() => {
-    if (onChangeChipList) {
-      onChangeChipList(dataChip);
-    }
-  }, [dataChip]);
 
   const onDelete = (e: any) => {
     const dt = dataChip.filter((item) => item.key !== e);
     setDataChip(dt);
   };
 
-  const addChip = (value: string) => {
+  const addChip = (val: string) => {
     const dtchip = new Array<ChipData>(...dataChip);
     dtchip.push({
       key: dtchip.length,
-      label: value
+      label: val
     });
     setDataChip(dtchip);
   };
