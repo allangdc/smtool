@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
+import FootballTable from "../../components/FootballTable";
 import MySelect from "../../components/MySelect";
 import ViewSubHeader from "../../components/ViewSubHeader";
 
@@ -17,7 +18,7 @@ const LeftContent: React.FC = () => (
       />
     </Grid>
     <Grid item xs={12}>
-      <h1>Test Region</h1>
+      <FootballTable />
     </Grid>
   </Grid>
 );

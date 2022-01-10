@@ -11,37 +11,10 @@ import {
 import MyTextBox from "../../components/MyTextBox";
 import ChipList, { ChipData } from "../../components/ChipList";
 import ViewSubHeader from "../../components/ViewSubHeader";
-
-interface IDataStates {
-  teamName: string;
-  setTeamName: React.Dispatch<React.SetStateAction<string>>;
-  description: string;
-  setDescription: React.Dispatch<React.SetStateAction<string>>;
-  teamWebsite: string;
-  setTeamWebsite: React.Dispatch<React.SetStateAction<string>>;
-  teamType: string;
-  setTeamType: React.Dispatch<React.SetStateAction<string>>;
-  chipItems: ChipData[];
-  setChipItems: React.Dispatch<React.SetStateAction<ChipData[]>>;
-}
-
-const initDataStates: IDataStates = {
-  teamName: "",
-  setTeamName: () => {},
-  description: "",
-  setDescription: () => {},
-  teamWebsite: "",
-  setTeamWebsite: () => {},
-  teamType: "",
-  setTeamType: () => {},
-  chipItems: [],
-  setChipItems: () => {}
-};
-
-const DataStatesContext = React.createContext<IDataStates>(initDataStates);
+import { DataStatesCtx } from "./DataStatesContent";
 
 const RadioButton: React.FC = () => {
-  const context = useContext(DataStatesContext);
+  const context = useContext(DataStatesCtx);
   const { teamType, setTeamType } = context;
 
   return (
@@ -62,7 +35,7 @@ const RadioButton: React.FC = () => {
 };
 
 const LeftContent: React.FC = () => {
-  const context = useContext(DataStatesContext);
+  const context = useContext(DataStatesCtx);
   const { teamName, setTeamName, description, setDescription } = context;
 
   return (
@@ -72,6 +45,7 @@ const LeftContent: React.FC = () => {
           caption="Team name"
           placeholder="Insert Team Name"
           value={teamName}
+          required
           onChange={(e) => setTeamName(e.target.value)}
         />
       </Grid>
@@ -89,8 +63,18 @@ const LeftContent: React.FC = () => {
 };
 
 const RightContent: React.FC = () => {
-  const context = useContext(DataStatesContext);
-  const { teamWebsite, setTeamWebsite, setChipItems, chipItems } = context;
+  const context = useContext(DataStatesCtx);
+  const {
+    teamWebsite,
+    setTeamWebsite,
+    setChipItems,
+    chipItems,
+    setIsOpenModal
+  } = context;
+
+  const onChangeTagModal = (isOpen: boolean) => {
+    setIsOpenModal(isOpen);
+  };
 
   return (
     <Grid container spacing={2}>
@@ -106,7 +90,11 @@ const RightContent: React.FC = () => {
         <RadioButton />
       </Grid>
       <Grid item xs={12}>
-        <ChipList dataChip={chipItems} setDataChip={setChipItems} />
+        <ChipList
+          dataChip={chipItems}
+          setDataChip={setChipItems}
+          onChangeModal={onChangeTagModal}
+        />
       </Grid>
     </Grid>
   );
@@ -118,50 +106,24 @@ interface Props {
 
 const TeamInformationView: React.FC<Props> = (props: Props) => {
   const { id } = props;
-  const [teamName, setTeamName] = useState<string>("Oia");
-  const [description, setDescription] = useState<string>("OiDa");
-  const [teamWebsite, setTeamWebsite] = useState<string>("OiDaTeam");
-  const [teamType, setTeamType] = useState<string>("fantasy");
-  const [chipItems, setChipItems] = useState<Array<ChipData>>([
-    {
-      key: 0,
-      label: "Oi"
-    }
-  ]);
-
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const dataStates: IDataStates = {
-    teamName,
-    setTeamName,
-    description,
-    setDescription,
-    teamWebsite,
-    setTeamWebsite,
-    teamType,
-    setTeamType,
-    chipItems,
-    setChipItems
-  };
 
   return (
-    <DataStatesContext.Provider value={dataStates}>
-      <Grid container>
-        <Grid item xs={12}>
-          <ViewSubHeader title="TEAM INFORMATION" />
-        </Grid>
-        <Grid container spacing={5} item xs={12}>
-          <Grid item xs={1} />
-          <Grid item xs={4}>
-            <LeftContent />
-          </Grid>
-          <Grid item xs={2} />
-          <Grid item xs={4}>
-            <RightContent />
-          </Grid>
-          <Grid item xs={1} />
-        </Grid>
+    <Grid container>
+      <Grid item xs={12}>
+        <ViewSubHeader title="TEAM INFORMATION" />
       </Grid>
-    </DataStatesContext.Provider>
+      <Grid container spacing={5} item xs={12}>
+        <Grid item xs={1} />
+        <Grid item xs={4}>
+          <LeftContent />
+        </Grid>
+        <Grid item xs={2} />
+        <Grid item xs={4}>
+          <RightContent />
+        </Grid>
+        <Grid item xs={1} />
+      </Grid>
+    </Grid>
   );
 };
 

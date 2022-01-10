@@ -1,5 +1,5 @@
-import { Button, Chip, Grid, ListItem, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Chip, Typography } from "@mui/material";
 import DefButton from "./DefButton";
 import { useStyles } from "./style";
 
@@ -11,10 +11,11 @@ export interface ChipData {
 interface Props {
   dataChip: ChipData[];
   setDataChip: React.Dispatch<React.SetStateAction<ChipData[]>>;
+  onChangeModal: (isOpen: boolean) => void;
 }
 
 const ChipList = (props: Props) => {
-  const { dataChip, setDataChip } = props;
+  const { dataChip, setDataChip, onChangeModal } = props;
   const classes = useStyles();
 
   const onDelete = (e: any) => {
@@ -24,8 +25,12 @@ const ChipList = (props: Props) => {
 
   const addChip = (val: string) => {
     const dtchip = new Array<ChipData>(...dataChip);
+    const maxKey = dtchip.reduce((a, b) => (a.key > b.key ? a : b), {
+      key: -1,
+      label: ""
+    });
     dtchip.push({
-      key: dtchip.length,
+      key: maxKey.key + 1,
       label: val
     });
     setDataChip(dtchip);
@@ -44,7 +49,7 @@ const ChipList = (props: Props) => {
             onDelete={(e) => onDelete(item.key)}
           />
         ))}
-        <DefButton onEnterValue={addChip} />
+        <DefButton onEnterValue={addChip} onChangeModal={onChangeModal} />
       </div>
     </div>
   );

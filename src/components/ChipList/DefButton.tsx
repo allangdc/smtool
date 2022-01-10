@@ -1,25 +1,32 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Modal, Typography, Paper, TextField } from "@mui/material";
 import { useStyles } from "./style";
 
 interface Props {
   onEnterValue: (value: string) => void;
+  onChangeModal: (isOpen: boolean) => void;
 }
 
 const DefButton: React.FC<Props> = (props: Props) => {
-  const { onEnterValue } = props;
+  const { onEnterValue, onChangeModal } = props;
   const classes = useStyles();
-  const [open, setOpen] = useState<boolean>(false);
+  const [openTagModal, setOpenTagModal] = useState<boolean>(false);
   const [tagValue, setTagValue] = useState<string>("");
   const inputRef = useRef<HTMLSpanElement>(null);
 
   const handleOpen = () => {
     setTagValue("");
-    setOpen(true);
+    setOpenTagModal(true);
   };
   const handleClose = () => {
-    setOpen(false);
+    setOpenTagModal(false);
   };
+
+  useEffect(() => {
+    if (onChangeModal) {
+      onChangeModal(openTagModal);
+    }
+  }, [openTagModal]);
 
   const OnSubmitEnter = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,7 +46,7 @@ const DefButton: React.FC<Props> = (props: Props) => {
       >
         Def
       </Typography>
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={openTagModal} onClose={handleClose}>
         <form onSubmit={OnSubmitEnter}>
           <Paper
             className={classes.inputModal}

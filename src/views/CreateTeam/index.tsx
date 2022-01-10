@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Divider } from "@material-ui/core";
-import { Paper, Typography } from "@mui/material";
+import { Button, Paper, Typography } from "@mui/material";
 import TeamInformationView from "./TeamInformationView";
 import ConfigureSquadView from "./ConfigureSquadView";
-import { useStyles } from "./style";
+import DataStatesContent, { DataStatesCtx } from "./DataStatesContent";
+import { addMyTeams, IMyTeams } from "../../services/myteams";
+import { AuthContext } from "../../authContext";
+import Form from "./Form";
 
 interface Props {
-  id?: string;
+  edit?: boolean;
 }
 
 const Header: React.FC = () => (
@@ -16,17 +19,26 @@ const Header: React.FC = () => (
 );
 
 const CreateTeamView: React.FC<Props> = (props: Props) => {
-  const { id } = props;
+  const { edit } = props;
 
   return (
-    <div style={{ margin: 20 }}>
-      <Paper style={{ padding: 40 }}>
-        <Header />
-        <Divider />
-        <TeamInformationView />
-        <ConfigureSquadView />
-      </Paper>
-    </div>
+    <DataStatesContent>
+      <div style={{ margin: 20 }}>
+        <Paper style={{ padding: 40 }}>
+          <Form>
+            <>
+              <Header />
+              <Divider />
+              <TeamInformationView />
+              <ConfigureSquadView />
+              <Button variant="contained" type="submit">
+                Save
+              </Button>
+            </>
+          </Form>
+        </Paper>
+      </div>
+    </DataStatesContent>
   );
 };
 
