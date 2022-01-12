@@ -2,9 +2,10 @@ import { ChipData } from "../components/ChipList";
 import firebase from "./firebaseConnection";
 
 export interface IMyTeams {
+  id: string;
   description: string;
   name: string;
-  user_id: string;
+  uid: string;
   website: string;
   teamtype: string;
   tags: Array<ChipData>;
@@ -20,7 +21,11 @@ export const getMyTeams = async (
     .where("uid", "==", uid)
     .get()
     .then((snapshot) => {
-      myTeamsList = snapshot.docs.map((doc) => doc.data() as IMyTeams);
+      myTeamsList = snapshot.docs.map((doc) => {
+        const dt = doc.data() as IMyTeams;
+        dt.id = doc.id;
+        return dt;
+      });
     })
     .catch((error) => {
       console.log("GetMyTeams Error", error);
@@ -36,7 +41,7 @@ export const addMyTeams = async (data: IMyTeams): Promise<void> => {
     .set({
       description: data.description,
       name: data.name,
-      uid: data.user_id,
+      uid: data.uid,
       website: data.website,
       type: data.teamtype,
       tag: data.tags.map((item) => item.label)
@@ -47,4 +52,21 @@ export const addMyTeams = async (data: IMyTeams): Promise<void> => {
     .catch((error) => {
       console.log("AddMyTeams Error", error);
     });
+};
+
+export const deleteMyTeams = async (myteamId: string): Promise<boolean> => {
+  let wasRemoved = false;
+  await firebase
+    .firestore()
+    .collection("myTeams")
+    .doc(myteamId)
+    .delete()
+    .then(() => {
+      console.log("Data Deleted");
+      wasRemoved = true;
+    })
+    .catch((error) => {
+      console.log("DeleteMyTeams Error", error);
+    });
+  return wasRemoved;
 };

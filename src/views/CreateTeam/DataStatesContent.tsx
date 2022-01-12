@@ -39,16 +39,11 @@ interface Props {
 
 const DataStatesContent: React.FC<Props> = (props: Props) => {
   const { children } = props;
-  const [teamName, setTeamName] = useState<string>("POia");
-  const [description, setDescription] = useState<string>("POiDa");
-  const [teamWebsite, setTeamWebsite] = useState<string>("POiDaTeam");
-  const [teamType, setTeamType] = useState<string>("fantasy");
-  const [chipItems, setChipItems] = useState<Array<ChipData>>([
-    {
-      key: 0,
-      label: "Oia Aí"
-    }
-  ]);
+  const [teamName, setTeamName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [teamWebsite, setTeamWebsite] = useState<string>("");
+  const [teamType, setTeamType] = useState<string>("real");
+  const [chipItems, setChipItems] = useState<Array<ChipData>>([]);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   const dataStates = useMemo(

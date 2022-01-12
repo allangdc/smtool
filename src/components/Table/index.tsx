@@ -18,12 +18,16 @@ import EditIcon from "@mui/icons-material/Edit";
 import Header from "./header";
 import { useStyles } from "./style";
 import { IDataType } from "./datatype";
+import { deleteMyTeams } from "../../services/myteams";
 
-interface Props {
-  data: Array<IDataType>;
+interface ButtonsProps {
+  myteamId: string;
+  onDeleteClick: (myteamID: string) => void;
+  onEditClick: (myteamID: string) => void;
 }
 
-const Buttons: React.FC = () => {
+const Buttons: React.FC<ButtonsProps> = (props: ButtonsProps) => {
+  const { myteamId, onDeleteClick, onEditClick } = props;
   const classes = useStyles();
 
   return (
@@ -38,7 +42,7 @@ const Buttons: React.FC = () => {
             arrow: classes.customArrow
           }}
         >
-          <IconButton size="small">
+          <IconButton size="small" onClick={() => onDeleteClick(myteamId)}>
             <DeleteIcon fontSize="small" className={classes.tableButtonsIcon} />
           </IconButton>
         </Tooltip>
@@ -48,7 +52,7 @@ const Buttons: React.FC = () => {
           </IconButton>
         </Tooltip>
         <Tooltip title="Edit" placement="top" arrow>
-          <IconButton size="small">
+          <IconButton size="small" onClick={() => onEditClick(myteamId)}>
             <EditIcon fontSize="small" className={classes.tableButtonsIcon} />
           </IconButton>
         </Tooltip>
@@ -57,8 +61,14 @@ const Buttons: React.FC = () => {
   );
 };
 
+interface Props {
+  data: Array<IDataType>;
+  onDeleteClick: (myteamID: string) => void;
+  onEditClick: (myteamID: string) => void;
+}
+
 const Table: React.FC<Props> = (props: Props) => {
-  const { data } = props;
+  const { data, onDeleteClick, onEditClick } = props;
   const classes = useStyles();
   const [internalData, setInternalData] = useState<Array<IDataType>>([]);
 
@@ -117,7 +127,11 @@ const Table: React.FC<Props> = (props: Props) => {
                   </Typography>
                 </TableCell>
                 <TableCell sx={{ width: "10%" }}>
-                  <Buttons />
+                  <Buttons
+                    myteamId={item.id}
+                    onDeleteClick={onDeleteClick}
+                    onEditClick={onEditClick}
+                  />
                 </TableCell>
               </TableRow>
             ))}

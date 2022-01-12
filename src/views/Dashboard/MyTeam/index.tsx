@@ -1,20 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Divider } from "@mui/material";
 import Table from "../../../components/Table";
-import { dataContext, IDataContext } from "./dataContext";
 import TableHeader from "./tableHeader";
-import { getMyTeams, IMyTeams } from "../../../services/myteams";
+import { deleteMyTeams, getMyTeams, IMyTeams } from "../../../services/myteams";
 import { AuthContext } from "../../../authContext";
+import { IDataType } from "../../../components/Table/datatype";
 
 const MyTeamTable: React.FC = () => {
-  const [data, setData] = useState<Array<IMyTeams>>([]);
+  const [data, setData] = useState<Array<IDataType>>([]);
   const { authUser } = useContext(AuthContext);
 
   const updateMyTeams = async () => {
     if (authUser) {
-      const myteam = await getMyTeams(authUser.id);
+      const myteam: IMyTeams[] | null = await getMyTeams(authUser.id);
       if (myteam) {
-        setData(myteam);
+        setData(
+          myteam.map((item) => {
+            const dt: IDataType = {
+              id: item.id,
+              name: item.name,
+              description: item.description
+            };
+            return dt;
+          })
+        );
       } else {
         setData([]);
       }
@@ -25,11 +34,27 @@ const MyTeamTable: React.FC = () => {
     updateMyTeams();
   }, [authUser]);
 
+  const onDeleteTableClick = async (myteamID: string) => {
+    const ret = await deleteMyTeams(myteamID);
+    if (ret) {
+      const newDt = data.filter((item) => item.id !== myteamID);
+      setData(newDt);
+    }
+  };
+
+  const onEditTableClick = (myteamID: string) => {
+    alert(`Edit ${myteamID}`);
+  };
+
   return (
     <div>
       <TableHeader />
       <Divider />
-      <Table data={data} />
+      <Table
+        data={data}
+        onDeleteClick={onDeleteTableClick}
+        onEditClick={onEditTableClick}
+      />
     </div>
   );
 };

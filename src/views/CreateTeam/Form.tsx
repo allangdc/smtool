@@ -24,9 +24,10 @@ const Form: React.FC<Props> = (props: Props) => {
 
     if (authUser && !isOpenModal) {
       const data: IMyTeams = {
+        id: "",
         description,
         name: teamName,
-        user_id: authUser.id,
+        uid: authUser.id,
         website: teamWebsite,
         teamtype: teamType,
         tags: chipItems
