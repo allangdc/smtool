@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { ChipData } from "../../components/ChipList";
+import { IMyTeams } from "../../services/myteams";
 
 export interface IDataStates {
   teamName: string;

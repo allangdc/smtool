@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Divider } from "@material-ui/core";
 import { Button, Paper, Typography } from "@mui/material";
+import { useParams } from "react-router-dom";
 import TeamInformationView from "./TeamInformationView";
 import ConfigureSquadView from "./ConfigureSquadView";
-import DataStatesContent, { DataStatesCtx } from "./DataStatesContent";
-import { addMyTeams, IMyTeams } from "../../services/myteams";
-import { AuthContext } from "../../authContext";
+import DataStatesContent from "./DataStatesContent";
 import Form from "./Form";
+import { findMyTeamByID, IMyTeams } from "../../services/myteams";
 
 interface Props {
-  edit?: boolean;
+  editMode?: boolean;
 }
 
 const Header: React.FC = () => (
@@ -19,20 +19,36 @@ const Header: React.FC = () => (
 );
 
 const CreateTeamView: React.FC<Props> = (props: Props) => {
-  const { edit } = props;
+  const { editMode } = props;
+  const { id } = useParams<string>();
+  const [editMyTeam, setEditMyTeam] = useState<IMyTeams>();
+
+  useEffect(() => {
+    const ValidTeamId = async () => {
+      if (editMode && id) {
+        const myteam = await findMyTeamByID(id);
+        if (myteam) {
+          setEditMyTeam(myteam);
+        } else {
+          setEditMyTeam(undefined);
+        }
+      }
+    };
+    ValidTeamId();
+  }, [editMode, id]);
 
   return (
     <DataStatesContent>
       <div style={{ margin: 20 }}>
         <Paper style={{ padding: 40 }}>
-          <Form>
+          <Form editModeID={editMode ? id : undefined}>
             <>
               <Header />
               <Divider />
-              <TeamInformationView />
+              <TeamInformationView editItem={editMyTeam} />
               <ConfigureSquadView />
               <Button variant="contained" type="submit">
-                Save
+                {!editMode ? "Save" : "Modify"}
               </Button>
             </>
           </Form>

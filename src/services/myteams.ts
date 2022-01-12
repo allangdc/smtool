@@ -7,8 +7,8 @@ export interface IMyTeams {
   name: string;
   uid: string;
   website: string;
-  teamtype: string;
-  tags: Array<ChipData>;
+  type: string;
+  tag: Array<string>;
 }
 
 export const getMyTeams = async (
@@ -43,14 +43,35 @@ export const addMyTeams = async (data: IMyTeams): Promise<void> => {
       name: data.name,
       uid: data.uid,
       website: data.website,
-      type: data.teamtype,
-      tag: data.tags.map((item) => item.label)
+      type: data.type,
+      tag: data.tag
     })
     .then(() => {
       console.log("Data Added");
     })
     .catch((error) => {
       console.log("AddMyTeams Error", error);
+    });
+};
+
+export const updateMyTeams = async (data: IMyTeams): Promise<void> => {
+  await firebase
+    .firestore()
+    .collection("myTeams")
+    .doc(data.id)
+    .update({
+      description: data.description,
+      name: data.name,
+      uid: data.uid,
+      website: data.website,
+      type: data.type,
+      tag: data.tag
+    })
+    .then(() => {
+      console.log("Data Updated");
+    })
+    .catch((error) => {
+      console.log("UpdatedMyTeams Error", error);
     });
 };
 
@@ -69,4 +90,23 @@ export const deleteMyTeams = async (myteamId: string): Promise<boolean> => {
       console.log("DeleteMyTeams Error", error);
     });
   return wasRemoved;
+};
+
+export const findMyTeamByID = async (
+  myteamId: string
+): Promise<IMyTeams | null> => {
+  let myTeam: IMyTeams | null = null;
+  await firebase
+    .firestore()
+    .collection("myTeams")
+    .doc(myteamId)
+    .get()
+    .then((snapshot) => {
+      myTeam = snapshot.data() as IMyTeams;
+      myTeam.id = snapshot.id;
+    })
+    .catch((error) => {
+      console.log("FindMyTeams Error", error);
+    });
+  return myTeam;
 };

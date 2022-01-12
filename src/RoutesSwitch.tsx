@@ -14,6 +14,7 @@ const RoutesSwitch = () => {
     <Routes>
       <Route path="/" element={<DashBoard />} />
       <Route path="/new" element={<CreateTeamView />} />
+      <Route path="/edit/:id" element={<CreateTeamView editMode />} />
       <Route path="/login" element={<Login />} />
     </Routes>
   );

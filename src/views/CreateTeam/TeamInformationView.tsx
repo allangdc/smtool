@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   FormControl,
   FormControlLabel,
@@ -12,6 +12,7 @@ import MyTextBox from "../../components/MyTextBox";
 import ChipList, { ChipData } from "../../components/ChipList";
 import ViewSubHeader from "../../components/ViewSubHeader";
 import { DataStatesCtx } from "./DataStatesContent";
+import { IMyTeams } from "../../services/myteams";
 
 const RadioButton: React.FC = () => {
   const context = useContext(DataStatesCtx);
@@ -101,11 +102,31 @@ const RightContent: React.FC = () => {
 };
 
 interface Props {
-  id?: string;
+  editItem?: IMyTeams;
 }
 
 const TeamInformationView: React.FC<Props> = (props: Props) => {
-  const { id } = props;
+  const { editItem } = props;
+  const {
+    setTeamName,
+    setDescription,
+    setTeamWebsite,
+    setTeamType,
+    setChipItems
+  } = useContext(DataStatesCtx);
+
+  useEffect(() => {
+    if (editItem) {
+      setTeamName(editItem.name);
+      setDescription(editItem.description);
+      setTeamWebsite(editItem.website);
+      setTeamType(editItem.type);
+      setChipItems(
+        editItem.tag.map((item, index) => ({ key: index, label: item }))
+      );
+      console.log("OLHA", editItem);
+    }
+  }, [editItem]);
 
   return (
     <Grid container>

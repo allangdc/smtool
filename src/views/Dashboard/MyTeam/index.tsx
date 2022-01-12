@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Divider } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import Table from "../../../components/Table";
 import TableHeader from "./tableHeader";
 import { deleteMyTeams, getMyTeams, IMyTeams } from "../../../services/myteams";
@@ -9,6 +10,7 @@ import { IDataType } from "../../../components/Table/datatype";
 const MyTeamTable: React.FC = () => {
   const [data, setData] = useState<Array<IDataType>>([]);
   const { authUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const updateMyTeams = async () => {
     if (authUser) {
@@ -43,7 +45,7 @@ const MyTeamTable: React.FC = () => {
   };
 
   const onEditTableClick = (myteamID: string) => {
-    alert(`Edit ${myteamID}`);
+    navigate(`/edit/${myteamID}`);
   };
 
   return (
