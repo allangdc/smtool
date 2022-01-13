@@ -19,28 +19,32 @@ const FootballTable: React.FC<Props> = (props: Props) => {
   );
 
   return (
-    <Grid
-      container
-      direction="column"
-      justifyContent="space-around"
-      spacing={1}
-      className={classes.footballField}
-    >
-      {arrayFormation.map((form, index) => (
+    <div className={classes.bodyField}>
+      <div className={classes.lineCenterField} />
+      <div className={classes.circleCenterField} />
+      <Grid
+        container
+        direction="column"
+        justifyContent="space-around"
+        spacing={1}
+        className={classes.footballField}
+      >
+        {arrayFormation.map((form, index) => (
+          <LineField
+            key={`lin${index}`}
+            players={players}
+            linePos={index}
+            formation={arrayFormation}
+          />
+        ))}
         <LineField
-          key={`lin${index}`}
           players={players}
-          linePos={index}
+          linePos={-1}
           formation={arrayFormation}
+          goalkeeperLine
         />
-      ))}
-      <LineField
-        players={players}
-        linePos={-1}
-        formation={arrayFormation}
-        goalkeeperLine
-      />
-    </Grid>
+      </Grid>
+    </div>
   );
 };
 
