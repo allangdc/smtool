@@ -1,19 +1,16 @@
 import { alpha } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-const purple = "#b13d7c";
-const lightPurple = "#f7eef7";
 const radius = 30;
 const intRadius = radius * 0.9;
 const circleColor = alpha("#FFFFFF", 0.3);
 
 export const useStyles = makeStyles(() => ({
   footballField: {
-    backgroundColor: "blue",
+    background: "linear-gradient(to bottom, #c00e4f, #662f88)",
     minHeight: 600
   },
   lineTest: {
-    background: "red",
     display: "flex",
     justifyContent: "center",
     alignItems: "center"

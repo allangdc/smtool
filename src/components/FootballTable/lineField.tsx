@@ -22,17 +22,6 @@ const LineField: React.FC<Props> = (props: Props) => {
     const items4sum = formation.filter((item, index) => index < linePos);
     const sum = items4sum.reduce((prevSum, value) => prevSum + value, 0);
     const resume = 11 - sum - formation[linePos];
-    console.log(
-      "min",
-      "LINE",
-      linePos,
-      "items4sum",
-      items4sum,
-      "sum",
-      sum,
-      "Resume",
-      resume
-    );
     return resume;
   }, [formation, linePos]);
 
@@ -43,23 +32,12 @@ const LineField: React.FC<Props> = (props: Props) => {
     const items4sum = formation.filter((item, index) => index < linePos);
     const sum = items4sum.reduce((prevSum, value) => prevSum + value, 0);
     const resume = 10 - sum;
-    console.log(
-      "MAX",
-      "LINE",
-      linePos,
-      "items4sum",
-      items4sum,
-      "sum",
-      sum,
-      "Resume",
-      resume
-    );
     return resume;
-  }, [formation, linePos]);
+  }, [formation]);
 
   const playerFiltered = useMemo(
     () => players.filter((item, index) => index >= minPos && index <= maxPos),
-    [players]
+    [players, formation]
   );
 
   return (
@@ -71,11 +49,18 @@ const LineField: React.FC<Props> = (props: Props) => {
       justifyContent="space-around"
       alignItems="center"
     >
-      {playerFiltered.reverse().map((items: FieldType | undefined) => (
-        <Grid item xs={4} className={classes.lineTest}>
-          <CircleField>{items?.name}</CircleField>
-        </Grid>
-      ))}
+      {playerFiltered
+        .reverse()
+        .map((items: FieldType | undefined, index: number) => (
+          <Grid
+            item
+            key={`lin${linePos}-item${index}`}
+            xs={4}
+            className={classes.lineTest}
+          >
+            <CircleField>{items?.name}</CircleField>
+          </Grid>
+        ))}
     </Grid>
   );
 };
