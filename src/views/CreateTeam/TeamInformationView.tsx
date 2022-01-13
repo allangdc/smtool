@@ -1,15 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   FormControl,
   FormControlLabel,
   FormLabel,
   Grid,
   Radio,
-  RadioGroup,
-  Typography
+  RadioGroup
 } from "@mui/material";
 import MyTextBox from "../../components/MyTextBox";
-import ChipList, { ChipData } from "../../components/ChipList";
+import ChipList from "../../components/ChipList";
 import ViewSubHeader from "../../components/ViewSubHeader";
 import { DataStatesCtx } from "./DataStatesContent";
 import { IMyTeams } from "../../services/myteams";
@@ -124,7 +123,6 @@ const TeamInformationView: React.FC<Props> = (props: Props) => {
       setChipItems(
         editItem.tag.map((item, index) => ({ key: index, label: item }))
       );
-      console.log("OLHA", editItem);
     }
   }, [editItem]);
 

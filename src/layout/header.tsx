@@ -13,13 +13,9 @@ const Header: React.FC = () => {
   const [username, setUsername] = useState<string>("");
 
   useEffect(() => {
-    console.log("HEADER AQUI");
-    console.log(authUser);
     if (authUser) {
-      console.log("Setting HEADER...");
       setUsername(`${authUser.firstname} ${authUser.lastname}`);
     } else {
-      console.log("cleaning HEADER...");
       setUsername("");
     }
   }, [authUser]);

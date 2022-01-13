@@ -1,6 +1,6 @@
-import { Logout } from "@mui/icons-material";
 import { Button, Divider, Grid, Paper, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../authContext";
 import MyTextBox from "../../components/MyTextBox";
 import { authLogin, authLogout } from "../../services/auth";
@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [errMessage, setErrMessage] = useState<string>();
   const { setUserID } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const clearItems = () => {
     setUsrEmail("");
@@ -22,10 +23,10 @@ const Login = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const [uid, code] = await authLogin(usrEmail, password);
-    console.log("MY UID", uid);
     if (uid) {
       setUserID(uid);
       clearItems();
+      navigate("/");
     } else if (code === "auth/wrong-password") {
       setErrMessage("Invalid password");
     } else if (code === "auth/user-not-found") {

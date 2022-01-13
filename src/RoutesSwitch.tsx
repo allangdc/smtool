@@ -5,17 +5,23 @@ import CreateTeamView from "./views/CreateTeam";
 import DashBoard from "./views/Dashboard";
 import Login from "./views/login";
 
-const RoutesSwitch = () => {
+const RoutesSwitch: React.FC = () => {
   const { authUser } = useContext(AuthContext);
 
   const isLogged = () => !!authUser;
 
   return (
     <Routes>
-      <Route path="/" element={<DashBoard />} />
-      <Route path="/new" element={<CreateTeamView />} />
-      <Route path="/edit/:id" element={<CreateTeamView editMode />} />
-      <Route path="/login" element={<Login />} />
+      {isLogged() ? (
+        <>
+          <Route path="/" element={<DashBoard />} />
+          <Route path="/new" element={<CreateTeamView />} />
+          <Route path="/edit/:id" element={<CreateTeamView editMode />} />
+          <Route path="/login" element={<Login />} />
+        </>
+      ) : (
+        <Route path="/login" element={<Login />} />
+      )}
     </Routes>
   );
 };

@@ -11,6 +11,7 @@ export interface ChipData {
 interface Props {
   dataChip: ChipData[];
   setDataChip: React.Dispatch<React.SetStateAction<ChipData[]>>;
+  // eslint-disable-next-line no-unused-vars
   onChangeModal: (isOpen: boolean) => void;
 }
 
@@ -46,7 +47,7 @@ const ChipList = (props: Props) => {
             label={item.label}
             color="primary"
             style={{ marginRight: 3, marginBottom: 1 }}
-            onDelete={(e) => onDelete(item.key)}
+            onDelete={() => onDelete(item.key)}
           />
         ))}
         <DefButton onEnterValue={addChip} onChangeModal={onChangeModal} />

@@ -9,7 +9,9 @@ import {
 import { useStyles } from "./style";
 
 interface Props {
+  // eslint-disable-next-line no-unused-vars
   sortByName: (sort: string) => void;
+  // eslint-disable-next-line no-unused-vars
   sortByDesc: (sort: string) => void;
 }
 

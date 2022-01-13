@@ -1,4 +1,3 @@
-import { ChipData } from "../components/ChipList";
 import firebase from "./firebaseConnection";
 
 export interface IMyTeams {
@@ -33,7 +32,8 @@ export const getMyTeams = async (
   return myTeamsList;
 };
 
-export const addMyTeams = async (data: IMyTeams): Promise<void> => {
+export const addMyTeams = async (data: IMyTeams): Promise<boolean> => {
+  let wasAdded = false;
   await firebase
     .firestore()
     .collection("myTeams")
@@ -47,14 +47,16 @@ export const addMyTeams = async (data: IMyTeams): Promise<void> => {
       tag: data.tag
     })
     .then(() => {
-      console.log("Data Added");
+      wasAdded = true;
     })
     .catch((error) => {
       console.log("AddMyTeams Error", error);
     });
+  return wasAdded;
 };
 
-export const updateMyTeams = async (data: IMyTeams): Promise<void> => {
+export const updateMyTeams = async (data: IMyTeams): Promise<boolean> => {
+  let wasUpdate = false;
   await firebase
     .firestore()
     .collection("myTeams")
@@ -68,11 +70,12 @@ export const updateMyTeams = async (data: IMyTeams): Promise<void> => {
       tag: data.tag
     })
     .then(() => {
-      console.log("Data Updated");
+      wasUpdate = true;
     })
     .catch((error) => {
       console.log("UpdatedMyTeams Error", error);
     });
+  return wasUpdate;
 };
 
 export const deleteMyTeams = async (myteamId: string): Promise<boolean> => {
@@ -83,7 +86,6 @@ export const deleteMyTeams = async (myteamId: string): Promise<boolean> => {
     .doc(myteamId)
     .delete()
     .then(() => {
-      console.log("Data Deleted");
       wasRemoved = true;
     })
     .catch((error) => {

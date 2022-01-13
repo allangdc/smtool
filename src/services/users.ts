@@ -30,7 +30,6 @@ export const getUserByID = async (id: string): Promise<IUserList | null> => {
     .where("__name__", "==", id)
     .get()
     .then((snapshot) => {
-      console.log("VAI1");
       const usersList = snapshot.docs.map((doc) => doc.data() as IUserList);
       if (usersList.length > 0) {
         // eslint-disable-next-line prefer-destructuring

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { IAuthUser, isLogged } from "./services/auth";
+import React, { useEffect, useMemo, useState } from "react";
+import { IAuthUser } from "./services/auth";
 import firebase, { firebaseAuth } from "./services/firebaseConnection";
 import { getUserByID } from "./services/users";
 
@@ -33,20 +33,15 @@ const AuthContextProvider: React.FC<Props> = (props: Props) => {
   const [userID, setUserID] = useState<string>();
   const { children } = props;
 
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const authContext: IAuthContext = {
-    authUser,
-    setAuthUser,
-    userID,
-    setUserID
-  };
+  const authContext = useMemo(
+    () => ({ authUser, setAuthUser, userID, setUserID }),
+    [authUser, userID]
+  );
 
   useEffect(() => {
     const getUSR = async () => {
       if (userID) {
-        console.log("OI");
         const userdb = await getUserByID(userID);
-        console.log("OI3");
         if (userdb) {
           setAuthUser({
             id: userID,
@@ -68,13 +63,10 @@ const AuthContextProvider: React.FC<Props> = (props: Props) => {
       auth.onAuthStateChanged((user: firebase.User | null) => {
         if (user) {
           if (user.uid !== userID) {
-            console.log("USER_ID", user.uid);
-            console.log("I'm logged");
             setUserID(user.uid);
           }
         } else {
           setUserID(undefined);
-          console.log("I'm logouted");
         }
       });
     };

@@ -18,11 +18,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import Header from "./header";
 import { useStyles } from "./style";
 import { IDataType } from "./datatype";
-import { deleteMyTeams } from "../../services/myteams";
 
 interface ButtonsProps {
   myteamId: string;
+  // eslint-disable-next-line no-unused-vars
   onDeleteClick: (myteamID: string) => void;
+  // eslint-disable-next-line no-unused-vars
   onEditClick: (myteamID: string) => void;
 }
 
@@ -63,7 +64,9 @@ const Buttons: React.FC<ButtonsProps> = (props: ButtonsProps) => {
 
 interface Props {
   data: Array<IDataType>;
+  // eslint-disable-next-line no-unused-vars
   onDeleteClick: (myteamID: string) => void;
+  // eslint-disable-next-line no-unused-vars
   onEditClick: (myteamID: string) => void;
 }
 

@@ -37,12 +37,11 @@ const Form: React.FC<Props> = (props: Props) => {
       };
       if (!editModeID) {
         await addMyTeams(data);
-        alert("Criado");
+        alert("New Team Added");
       } else {
         await updateMyTeams(data);
-        alert("Atualizado");
+        alert("Team Updated");
       }
-      console.table(data);
       navigate("/");
     }
   };

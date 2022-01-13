@@ -11,6 +11,7 @@ export interface MySelectOption {
 interface Props {
   caption: string;
   options: Array<MySelectOption>;
+  // eslint-disable-next-line no-unused-vars
   onChange?: (value: string) => void;
   defaultValue?: string;
 }

@@ -3,7 +3,9 @@ import { Modal, Typography, Paper, TextField } from "@mui/material";
 import { useStyles } from "./style";
 
 interface Props {
+  // eslint-disable-next-line no-unused-vars
   onEnterValue: (value: string) => void;
+  // eslint-disable-next-line no-unused-vars
   onChangeModal: (isOpen: boolean) => void;
 }
 
