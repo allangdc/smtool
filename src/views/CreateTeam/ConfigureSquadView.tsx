@@ -30,16 +30,13 @@ const ConfigureSquadView: React.FC = () => (
     <Grid item xs={12}>
       <ViewSubHeader title="CONFIGURE SQUAD" />
     </Grid>
-    <Grid container spacing={5} item xs={12}>
-      <Grid item xs={1} />
-      <Grid item xs={4}>
+    <Grid container spacing={5} item xs={12} justifyContent="space-around">
+      <Grid item xs={5}>
         <LeftContent />
       </Grid>
-      <Grid item xs={2} />
-      <Grid item xs={4}>
+      <Grid item xs={5}>
         <RightContent />
       </Grid>
-      <Grid item xs={1} />
     </Grid>
   </Grid>
 );
