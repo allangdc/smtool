@@ -54,7 +54,8 @@
     "import/prefer-default-export": "off",
     "react/require-default-props": "off",
     "operator-linebreak": "off",
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+    "implicit-arrow-linebreak": "off"
   },
   "settings": {
     "import/parsers": {

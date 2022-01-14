@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import FootballTable from "../../components/FootballTable";
 import { FieldType } from "../../components/FootballTable/types";
 import MySelect from "../../components/MySelect";
+import PlayerSelect from "../../components/PlayerSelect";
 import ViewSubHeader from "../../components/ViewSubHeader";
 
 const LeftContent: React.FC = () => {
@@ -55,7 +56,7 @@ const LeftContent: React.FC = () => {
 
 const RightContent: React.FC = () => (
   <div>
-    <h1>Test Right Region</h1>
+    <PlayerSelect />
   </div>
 );
 

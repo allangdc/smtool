@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Grid } from "@mui/material";
 import CircleField from "./circlefield";
 import { useStyles } from "./style";
@@ -55,7 +55,7 @@ const LineField: React.FC<Props> = (props: Props) => {
           <Grid
             item
             key={`lin${linePos}-item${index}`}
-            xs={4}
+            xs={3}
             className={classes.lineTest}
           >
             <CircleField>{items?.name}</CircleField>
