@@ -45,7 +45,7 @@ const MyTeamTable: React.FC = () => {
   };
 
   const onEditTableClick = (myteamID: string) => {
-    navigate(`/edit/${myteamID}`);
+    navigate(`/smtool/edit/${myteamID}`);
   };
 
   return (

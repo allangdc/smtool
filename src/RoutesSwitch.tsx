@@ -14,13 +14,16 @@ const RoutesSwitch: React.FC = () => {
     <Routes>
       {isLogged() ? (
         <>
-          <Route path="/" element={<DashBoard />} />
-          <Route path="/new" element={<CreateTeamView />} />
-          <Route path="/edit/:id" element={<CreateTeamView editMode />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/smtool" element={<DashBoard />} />
+          <Route path="/smtool/new" element={<CreateTeamView />} />
+          <Route
+            path="/smtool/edit/:id"
+            element={<CreateTeamView editMode />}
+          />
+          <Route path="/smtool/login" element={<Login />} />
         </>
       ) : (
-        <Route path="/login" element={<Login />} />
+        <Route path="/smtool/login" element={<Login />} />
       )}
     </Routes>
   );

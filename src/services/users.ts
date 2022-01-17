@@ -1,3 +1,4 @@
+import { PrintConsole } from "../utils/PrintConsole";
 import firebase from "./firebaseConnection";
 
 interface IUserList {
@@ -17,7 +18,7 @@ export const getUsers = async (): Promise<Array<IUserList> | null> => {
       usersList = snapshot.docs.map((doc) => doc.data() as IUserList);
     })
     .catch((error) => {
-      console.log("getUsers Error", error);
+      PrintConsole(`getUsers Error ${error}`);
     });
   return usersList;
 };
@@ -37,7 +38,7 @@ export const getUserByID = async (id: string): Promise<IUserList | null> => {
       }
     })
     .catch((error) => {
-      console.log("getUsers Error", error);
+      PrintConsole(`getUsers Error ${error}`);
     });
   return user;
 };

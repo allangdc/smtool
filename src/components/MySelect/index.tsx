@@ -38,8 +38,10 @@ const MySelect = (props: Props) => {
         onChange={handleChange}
         className={classes.textField}
       >
-        {options.map((opt: MySelectOption) => (
-          <MenuItem value={opt.value}>{opt.caption}</MenuItem>
+        {options.map((opt: MySelectOption, index: number) => (
+          <MenuItem key={`sel${index}`} value={opt.value}>
+            {opt.caption}
+          </MenuItem>
         ))}
       </Select>
     </div>

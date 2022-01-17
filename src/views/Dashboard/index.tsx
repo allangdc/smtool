@@ -13,7 +13,7 @@ const DashBoard = () => (
       </Grid>
       <Grid item xs={6}>
         <Paper>
-          <h1>MyTeams</h1>
+          <h1>TO BE DONE</h1>
         </Paper>
       </Grid>
     </Grid>
