@@ -22,9 +22,16 @@ Builds the app for production to the `build` folder.
 
 Check for any errors or warnings in the code
 
+## Github URL
+
+You can also access the page via the github link
+https://allangdc.github.io/smtool/
+
 ## User for test
 
 User creation hasn't been implemented, so we must use pre-registered users.
+
+access: smtool/login
 
 user: johndoe@test.com.br
 pwd: Test@123
