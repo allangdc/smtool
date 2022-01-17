@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/smtool/static/css/main.fa98c921.css",
+    "main.js": "/smtool/static/js/main.15f318b2.js",
+    "index.html": "/smtool/index.html",
+    "main.fa98c921.css.map": "/smtool/static/css/main.fa98c921.css.map",
+    "main.15f318b2.js.map": "/smtool/static/js/main.15f318b2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fa98c921.css",
+    "static/js/main.15f318b2.js"
+  ]
+}
