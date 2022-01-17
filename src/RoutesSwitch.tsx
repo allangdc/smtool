@@ -23,7 +23,7 @@ const RoutesSwitch: React.FC = () => {
           <Route path="/smtool/login" element={<Login />} />
         </>
       ) : (
-        <Route path="/smtool/login" element={<Login />} />
+        <Route path="/smtool/*" element={<Login />} />
       )}
     </Routes>
   );
