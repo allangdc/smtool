@@ -4,10 +4,9 @@ import React from "react";
 import { useStyles } from "./style";
 
 export interface PlayerType {
-  id: string;
   name: string;
   age: number;
-  country: string;
+  nationality: string;
 }
 
 interface Props {
@@ -16,7 +15,7 @@ interface Props {
 
 const PlayerCard: React.FC<Props> = (props: Props) => {
   const { player } = props;
-  const { id, name, age, country } = player;
+  const { name, age, nationality } = player;
   const classes = useStyles();
 
   return (
@@ -35,15 +34,7 @@ const PlayerCard: React.FC<Props> = (props: Props) => {
             Nationality:
           </Typography>
           <Typography variant="caption" className={classes.cardData}>
-            {country}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="caption" className={classes.cardLegend}>
-            id:
-          </Typography>
-          <Typography variant="caption" className={classes.cardData}>
-            {id}
+            {nationality}
           </Typography>
         </Grid>
       </Grid>

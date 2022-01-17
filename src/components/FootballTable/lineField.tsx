@@ -58,7 +58,7 @@ const LineField: React.FC<Props> = (props: Props) => {
             xs={3}
             className={classes.lineTest}
           >
-            <CircleField>{items?.name}</CircleField>
+            <CircleField id={`${linePos}_${index}`}>{items?.name}</CircleField>
           </Grid>
         ))}
     </Grid>

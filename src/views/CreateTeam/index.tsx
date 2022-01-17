@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Divider } from "@material-ui/core";
-import { Button, Paper, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import TeamInformationView from "./TeamInformationView";
 import ConfigureSquadView from "./ConfigureSquadView";
@@ -47,9 +47,6 @@ const CreateTeamView: React.FC<Props> = (props: Props) => {
               <Divider />
               <TeamInformationView editItem={editMyTeam} />
               <ConfigureSquadView />
-              <Button variant="contained" type="submit">
-                {!editMode ? "Save" : "Modify"}
-              </Button>
             </>
           </Form>
         </Paper>

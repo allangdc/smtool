@@ -1,26 +1,20 @@
-import { Grid } from "@mui/material";
-import React, { useState } from "react";
+import { Button, Grid } from "@mui/material";
+import React, { useContext } from "react";
+import {
+  DragDropContext,
+  DropResult,
+  ResponderProvided
+} from "react-beautiful-dnd";
 import FootballTable from "../../components/FootballTable";
-import { FieldType } from "../../components/FootballTable/types";
 import MySelect from "../../components/MySelect";
 import PlayerSelect from "../../components/PlayerSelect";
 import ViewSubHeader from "../../components/ViewSubHeader";
+import { PrintConsole } from "../../utils/PrintConsole";
+import { DataStatesCtx } from "./DataStatesContent";
 
 const LeftContent: React.FC = () => {
-  const [formation, setFormation] = useState<string>("3-4-3");
-  const [players, setPlayers] = useState<Array<FieldType | undefined>>([
-    { name: "GOL", position: 1 },
-    { name: "2", position: 1 },
-    { name: "3", position: 1 },
-    { name: "4", position: 1 },
-    { name: "5", position: 1 },
-    { name: "6", position: 1 },
-    { name: "7", position: 1 },
-    { name: "8", position: 1 },
-    { name: "9", position: 1 },
-    { name: "10", position: 1 },
-    { name: "11", position: 1 }
-  ]);
+  const { formation, setFormation, selectedPlayers, editMode } =
+    useContext(DataStatesCtx);
 
   const onFormationChange = (value: string) => {
     setFormation(value);
@@ -48,7 +42,12 @@ const LeftContent: React.FC = () => {
         />
       </Grid>
       <Grid item xs={12}>
-        <FootballTable formation={formation} players={players} />
+        <FootballTable formation={formation} players={selectedPlayers} />
+      </Grid>
+      <Grid item xs={12}>
+        <Button variant="contained" type="submit">
+          {!editMode ? "Save" : "Modify"}
+        </Button>
       </Grid>
     </Grid>
   );
@@ -56,24 +55,33 @@ const LeftContent: React.FC = () => {
 
 const RightContent: React.FC = () => (
   <div>
-    <PlayerSelect />
+    <PlayerSelect maxHeight={550} />
   </div>
 );
 
-const ConfigureSquadView: React.FC = () => (
-  <Grid container>
-    <Grid item xs={12}>
-      <ViewSubHeader title="CONFIGURE SQUAD" />
-    </Grid>
-    <Grid container spacing={5} item xs={12} justifyContent="space-around">
-      <Grid item xs={5}>
-        <LeftContent />
+const ConfigureSquadView: React.FC = () => {
+  // eslint-disable-next-line no-unused-vars
+  const DragEnd = (result: DropResult, provided: ResponderProvided) => {
+    PrintConsole(`Destination ${result.destination}`);
+  };
+
+  return (
+    <DragDropContext onDragEnd={DragEnd}>
+      <Grid container>
+        <Grid item xs={12}>
+          <ViewSubHeader title="CONFIGURE SQUAD" />
+        </Grid>
+        <Grid container spacing={5} item xs={12} justifyContent="space-around">
+          <Grid item xs={5}>
+            <LeftContent />
+          </Grid>
+          <Grid item xs={5}>
+            <RightContent />
+          </Grid>
+        </Grid>
       </Grid>
-      <Grid item xs={5}>
-        <RightContent />
-      </Grid>
-    </Grid>
-  </Grid>
-);
+    </DragDropContext>
+  );
+};
 
 export default ConfigureSquadView;

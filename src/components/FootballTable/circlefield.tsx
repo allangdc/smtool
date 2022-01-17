@@ -1,17 +1,20 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { useStyles } from "./style";
+import { DropObject } from "../DraggableElement";
 
 interface Props {
   children?: React.ReactNode;
+  id: string;
 }
 
 const CircleField: React.FC<Props> = (props: Props) => {
-  const { children } = props;
+  const { children, id } = props;
   const classes = useStyles();
 
   return (
-    <div>
+    <DropObject id={`playerField_${id}`}>
       <div className={classes.externalCircle}>
         <div className={classes.internalCircle}>
           <div className={classes.contentCircle}>
@@ -19,7 +22,7 @@ const CircleField: React.FC<Props> = (props: Props) => {
           </div>
         </div>
       </div>
-    </div>
+    </DropObject>
   );
 };
 

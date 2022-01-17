@@ -53,6 +53,7 @@ const LeftContent: React.FC = () => {
         <MyTextBox
           caption="Description"
           multiline
+          required
           rows={6}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -81,6 +82,7 @@ const RightContent: React.FC = () => {
       <Grid item xs={12}>
         <MyTextBox
           caption="Team website"
+          required
           placeholder="http://myteam.com"
           value={teamWebsite}
           onChange={(e) => setTeamWebsite(e.target.value)}

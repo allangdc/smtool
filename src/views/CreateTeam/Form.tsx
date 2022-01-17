@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+/* eslint-disable no-alert */
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../authContext";
 import { addMyTeams, IMyTeams, updateMyTeams } from "../../services/myteams";
@@ -17,10 +18,15 @@ const Form: React.FC<Props> = (props: Props) => {
     teamWebsite,
     teamType,
     chipItems,
-    isOpenModal
+    isOpenModal,
+    setEditMode
   } = useContext(DataStatesCtx);
   const { authUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setEditMode(!!editModeID);
+  }, [editModeID]);
 
   const onSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,7 +48,7 @@ const Form: React.FC<Props> = (props: Props) => {
         await updateMyTeams(data);
         alert("Team Updated");
       }
-      navigate("/");
+      navigate("/smtool/");
     }
   };
 

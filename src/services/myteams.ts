@@ -1,3 +1,4 @@
+import { PrintConsole } from "../utils/PrintConsole";
 import firebase from "./firebaseConnection";
 
 export interface IMyTeams {
@@ -27,7 +28,7 @@ export const getMyTeams = async (
       });
     })
     .catch((error) => {
-      console.log("GetMyTeams Error", error);
+      PrintConsole(`GetMyTeams Error ${error}`);
     });
   return myTeamsList;
 };
@@ -50,7 +51,7 @@ export const addMyTeams = async (data: IMyTeams): Promise<boolean> => {
       wasAdded = true;
     })
     .catch((error) => {
-      console.log("AddMyTeams Error", error);
+      PrintConsole(`AddMyTeams Error ${error}`);
     });
   return wasAdded;
 };
@@ -73,7 +74,7 @@ export const updateMyTeams = async (data: IMyTeams): Promise<boolean> => {
       wasUpdate = true;
     })
     .catch((error) => {
-      console.log("UpdatedMyTeams Error", error);
+      PrintConsole(`UpdatedMyTeams Error ${error}`);
     });
   return wasUpdate;
 };
@@ -89,7 +90,7 @@ export const deleteMyTeams = async (myteamId: string): Promise<boolean> => {
       wasRemoved = true;
     })
     .catch((error) => {
-      console.log("DeleteMyTeams Error", error);
+      PrintConsole(`DeleteMyTeams Error ${error}`);
     });
   return wasRemoved;
 };
@@ -108,7 +109,7 @@ export const findMyTeamByID = async (
       myTeam.id = snapshot.id;
     })
     .catch((error) => {
-      console.log("FindMyTeams Error", error);
+      PrintConsole(`FindMyTeams Error ${error}`);
     });
   return myTeam;
 };

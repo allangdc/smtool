@@ -1,3 +1,4 @@
+import { PrintConsole } from "../utils/PrintConsole";
 import firebase, { firebaseAuth } from "./firebaseConnection";
 
 export interface IAuthUser {
@@ -25,7 +26,7 @@ export const authLogin = async (
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log("ERROR LOGIN", errorCode, errorMessage);
+      PrintConsole(`Error login: ${errorCode} - ${errorMessage}`);
       code = errorCode;
     });
   return [uid, code];
@@ -42,6 +43,6 @@ export const authLogout = async () => {
     .signOut()
     .then(() => {})
     .catch((error) => {
-      console.log("LOGOUT ERROR", error);
+      PrintConsole(`Logout Error ${error}`);
     });
 };

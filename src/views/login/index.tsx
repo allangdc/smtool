@@ -26,7 +26,7 @@ const Login = () => {
     if (uid) {
       setUserID(uid);
       clearItems();
-      navigate("/");
+      navigate("/smtool/");
     } else if (code === "auth/wrong-password") {
       setErrMessage("Invalid password");
     } else if (code === "auth/user-not-found") {

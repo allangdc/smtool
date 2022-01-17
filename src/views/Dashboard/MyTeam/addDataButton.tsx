@@ -7,7 +7,7 @@ const AddDataButton: React.FC = () => {
   const navigate = useNavigate();
 
   const handleOpen = () => {
-    navigate("/new");
+    navigate("/smtool/new");
   };
 
   return (
